@@ -1,179 +1,185 @@
-
 <!DOCTYPE html>
-<html lang="en" ng-app="formvalidation">
-<head>
-<meta charset="utf-8">
-<title>AngularJS Form Validation</title>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-<style type="text/css">
-.errortext{
-    color:red;
-}
-</style>
-</head>
-<body ng-controller="cntform">
-<div class="signup-form">
-    <form role="form" name="myForm" novalidate>
-        <h2>Register</h2>
-        
-        <div class="form-group">
-            <label >First Name</label>
-            <input type="text" class="form-control" name="firstname"  ng-model="user.firstname" required>
-            <div class="errortext" ng-show="myForm.firstname.$dirty && myForm.firstname.$invalid">
-                <span ng-show="myForm.firstname.$error.required">Firstname is required</span>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="validation.js"></script>
+    <link rel="stylesheet" href="validation.css" />
+  </head>
+  <style>
+    .head {
+      text-align: center;
+    }
+    .btn1 {
+      padding-left: 17%;
+    }
+    .section {
+      padding-left: 20%;
+      align-items: center;
+    }
+  </style>
+
+  <body ng-app="myApp" ng-controller="myController">
+    <div class="head">
+      <h4>Rigistration</h4>
+    </div>
+    <main class="section">
+      <div class="row">
+        <div class="section">
+          <div class="card-body">
+            <div class="row">
+              <form ng-submit="myForm()" name="myForm">
+                <p>
+                  <label>name:</label>
+                  <input
+                    type="text"
+                    name="name"
+                    ng-model="name"
+                    placeholder="Enter The Name"
+                    required
+                  />
+                  <span ng-show="myForm.name.$touched && myForm.name.$invalid"
+                    >Enter name</span
+                  >
+                </p>
+                <p>
+                  <label>surname:</label>
+                  <input
+                    type="text"
+                    name="surname"
+                    ng-model="surname"
+                    placeholder="Enter The Name"
+                    required
+                  />
+                  <span
+                    ng-show="myForm.surname.$touched && myForm.name.$invalid"
+                    >Enter your surname</span
+                  >
+                </p>
+                <p>
+                  <label>phoneNumber:</label>
+                  <input
+                    type="number"
+                    name="phoneNumber"
+                    ng-model="phoneNumber"
+                    ng-minlength="10"
+                    ng-maxlength="10"
+                    placeholder="Enter your phone number"
+                    required
+                  />
+                  <span
+                    ng-show="myForm.phoneNumber.$touched && myForm.phoneNumber.$invalid"
+                    >Enter phone number</span
+                  >
+                  <span
+                    ng-show="((myForm.phoneNumber.$error.minlength || myForm.phoneNumber.$error.maxlength)&& myForm.phoneNumber.$untouched)"
+                    >Enter 10 digit number</span
+                  >
+                </p>
+                <p>
+                  <label>Email :</label>
+                  <input
+                    type="Email"
+                    name="Email"
+                    ng-model="Email"
+                    placeholder="Enter The Email"
+                    ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+                    required
+                  />
+                  <span ng-show="myForm.Email.$touched && myForm.Email.$invalid"
+                    >Enter Email</span
+                  >
+                  <span ng-show="myForm.Email.$dirty && myForm.Email.$pattern"
+                    >Enter Valid Email Address</span
+                  >
+                </p>
+                <p>
+                  <label>password: </label>
+                  <input
+                    type="text"
+                    name="password"
+                    ng-model="password"
+                    ng-minlength="4"
+                    ng-maxlength="8"
+                    placeholder="Enter The password"
+                    required
+                  />
+                  <span
+                    ng-show="myForm.password.$touched && myForm.password.$invalid"
+                    >Enter password</span
+                  >
+                  <span
+                    ng-show="myForm.password.$error.minlength && myForm.password.$dirty"
+                  >
+                    password is too small
+                  </span>
+                  <span
+                    ng-show="myForm.password.$error.maxlength && myForm.password.$dirty"
+                  >
+                    password is too long</span
+                  >
+                </p>
+                <p>
+                  <label>confirmPassword: </label>
+                  <input
+                    type="text"
+                    name="conformPassword"
+                    ng-model="confirmPassword"
+                    placeholder="enter confirm password"
+                  />
+                  <span
+                    ng-show="myForm.confirmPassword.$touched && myForm.confirmPassword.$invalid"
+                    >Enter</span
+                  >
+                </p>
+                <button
+                  class="btn btn-info"
+                  ng-disabled="form.$invalid"
+                  type="submit"
+                  ng-click="myForm()"
+                >
+                  Submit
+                </button>
+              </form>
             </div>
-          
+          </div>
         </div>
-        <div class="form-group">
-                 <label>Last Name</label>
-                    <input  type="text" class="form-control"  ng-model="user.lastname" required>
-                    <div class="errortext" ng-show="myForm.lastname.$dirty && myForm.lastname.$invalid">
-                        <span ng-show="myForm.lastname.$error.required">Lastname is required</span>
-                    </div>
-               
-                      
-        </div>
-        <div class="form-group">
-            <label>Email Address</label>
-            <input  type="email" class="form-control" name="email" ng-model="user.email" required>
-            <div class="errortext" ng-show="myForm.email.$dirty && myForm.email.$invalid">
-                <span ng-show="myForm.email.$error.required">Email is required</span>
-                <span ng-show="myForm.email.$error.email">Invalid email format</span>
-            </div>
-        </div>   
-        <div class="form-group">
-            <label>Mobile number</label>
-            <input  type="number" class="form-control" name="phone" placeholder="" ng-model="user.phone" required>
-            <div class="errortext" ng-show="myForm.phone.$dirty && myForm.phone.$invalid">
-                <span ng-show="myForm.phone.$error.required">Phone number is required</span>
-                <span ng-show="myForm.phone.$error.phone">Invalid mobile number format</span>
-            </div>
-        </div>           
-      
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" placeholder="" ng-model="user.password" required>
-            <div class="errortext" ng-show="myForm.password.$dirty && myForm.password.$invalid">
-                <span ng-show="myForm.password.$error.required">Password is required</span>
-            </div>
-        </div>
-      
-        <div class="form-group">
-            <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> & <a href="#">Privacy Policy</a></label>
-        </div>
-        <div class="form-group">
-            <button type="button" class="btn btn-success btn-lg btn-block" ng-disabled="myForm.$invalid || user.repassword != user.password" ng-click="submit()"><span class="glyphicon glyphicon-check"></span> Register Now</button>
-        </div>
-         
-        <div class="alert alert-success text-center" ng-show="valid">
-            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">×</span></button>
-            <span class="glyphicon glyphicon-check"></span> Form Validated
-        </div>
-         
-    </form>
-   
-</div>
-<script>
-var app = angular.module('formvalidation', []);
-app.controller('cntform', function($scope){
-    $scope.valid = false;
-    $scope.submit = function(){
-        $scope.valid = true;
-    }
-    $scope.close = function(){
-        $scope.valid = false;
-    }
-});
-</script>
-<style>
-    body {
-        color: #fff;
-        background: #63738a;
-        font-family: 'Roboto', sans-serif;
-    }
-    .form-control{
-        height: 40px;
-        box-shadow: none;
-        color: #969fa4;
-    }
-    .form-control:focus{
-        border-color: #5cb85c;
-    }
-    .form-control, .btn{        
-        border-radius: 3px;
-    }
-    .signup-form{
-        width: 400px;
-        margin: 0 auto;
-        padding: 30px 0;
-    }
-    .signup-form h2{
-        color: #636363;
-        margin: 0 0 15px;
-        position: relative;
-        text-align: center;
-    }
-    .signup-form h2:before, .signup-form h2:after{
-        content: "";
-        height: 2px;
-        width: 30%;
-        background: #d4d4d4;
-        position: absolute;
-        top: 50%;
-        z-index: 2;
-    }   
-    .signup-form h2:before{
-        left: 0;
-    }
-    .signup-form h2:after{
-        right: 0;
-    }
-    .signup-form .hint-text{
-        color: #999;
-        margin-bottom: 30px;
-        text-align: center;
-    }
-    .signup-form form{
-        color: #999;
-        border-radius: 3px;
-        margin-bottom: 15px;
-        background: #f2f3f7;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 30px;
-    }
-    .signup-form .form-group{
-        margin-bottom: 20px;
-    }
-    .signup-form input[type="checkbox"]{
-        margin-top: 3px;
-    }
-    .signup-form .btn{        
-        font-size: 16px;
-        font-weight: bold;      
-        min-width: 140px;
-        outline: none !important;
-    }
-    .signup-form .row div:first-child{
-        padding-right: 10px;
-    }
-    .signup-form .row div:last-child{
-        padding-left: 10px;
-    }       
-    .signup-form a{
-        color: #fff;
-        text-decoration: underline;
-    }
-    .signup-form a:hover{
-        text-decoration: none;
-    }
-    .signup-form form a{
-        color: #5cb85c;
-        text-decoration: none;
-    }   
-    .signup-form form a:hover{
-        text-decoration: underline;
-    }  
-</style>
-</body>
+      </div>
+    </main>
+    <script>
+      var app = angular.module("myApp", []);
+      app.controller("myController", function ($scope) {
+        $scope.person = [
+          (Name = ""),
+          (surname = ""),
+          (phoneNumber = ""),
+          (Email = ""),
+          (password = ""),
+          (confirmPassword = ""),
+        ];
+        $scope.meassage = "";
+        $scope.person = [];
+        $scope.myForm = function () {
+          if ($scope.person) {
+            $scope.person.push({
+              Name: $scope.Name,
+              surname: $scope.surname,
+              phoneNumber: $scope.phoneNumber,
+              Email: $scope.Email,
+              password: $scope.password,
+              confirmPassword: $scope.confirmPassword,
+            });
+          }
+        };
+      });
+    </script>
+  </body>
 </html>
